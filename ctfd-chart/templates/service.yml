@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.ctfd.service.name }}
+  namespace: {{ .Values.ctfd.service.namespace }}
+spec:
+  selector:
+    app: {{ .Values.ctfd.name }}
+  ports:
+  - port: {{ .Values.ctfd.service.ports.port }}
+    targetPort: {{ .Values.ctfd.service.ports.targetPort }}
+  type: ClusterIP

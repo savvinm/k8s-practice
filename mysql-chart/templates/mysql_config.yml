@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.mysql.config.name }}
+  namespace: {{ .Values.mysql.config.namespace }}
+data:
+{{- range .Values.mysql.config.data }}
+  {{ .key }}: {{ .value }}
+{{- end}}

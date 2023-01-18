@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.ctfd.config.name }}
+  namespace: {{ .Values.ctfd.config.namespace }}
+data:
+{{- range .Values.ctfd.config.data }}
+  {{ .key }}: {{ .value }}
+{{- end}}

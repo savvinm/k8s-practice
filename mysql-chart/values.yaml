@@ -1,0 +1,48 @@
+
+mysql:
+  name: mysql
+  namespace: ctfd-space
+  container: 
+    name: mysql
+    image: mysql:5.7
+    ports:
+      containerPort: 3306
+    volumeMounts: 
+      name: mysql-storage
+      mountPath: /var/lib/mysql
+      persistentVolumeClaim:
+        claimName: mysql-pvc
+    resources:
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
+    secret:
+      name: MYSQL_ROOT_PASSWORD
+      secret_name: mysql-pass
+      key: password
+  config:
+    name: mysql-config
+    namespace: ctfd-space
+    data:
+      - key: MYSQL_DATABASE
+        value: ctfd_db
+  secret:
+    name: mysql-pass
+    namespace: ctfd-space
+    data: 
+     - key: password
+       value: cm9vdA==
+  volume:
+    name: mysql-pvc
+    namespace: ctfd-space
+    spec:
+      resources:
+        storage: 10Gi
+      accessModes:
+        ReadWriteOnce
+  service:
+    name: mysql
+    namespace: ctfd-space
+    ports:
+      port: 3306
+      targetPort: 3306

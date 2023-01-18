@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.adminer.name }}
+  namespace: {{ .Values.adminer.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.adminer.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.adminer.name }}
+    spec:
+      containers:
+      - name: {{ .Values.adminer.container.name }}
+        image: {{ .Values.adminer.container.image }}
+        resources:
+          limits:
+            memory: {{ .Values.adminer.container.resources.limits.memory }}
+            cpu: {{ .Values.adminer.container.resources.limits.cpu }}
+        ports:
+        - containerPort: {{ .Values.adminer.container.ports.containerPort }}

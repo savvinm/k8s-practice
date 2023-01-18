@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.ctfd.ingress.name }}
+  labels:
+    name: {{ .Values.ctfd.ingress.name }}
+  namespace: {{ .Values.ctfd.service.namespace }}
+spec:
+  rules:
+  - host: {{ .Values.ctfd.ingress.host }}
+    http:
+      paths:
+      - pathType: Prefix
+        path: {{ .Values.ctfd.ingress.path }}
+        backend:
+          service:
+            name: {{ .Values.ctfd.service.name }}
+            port: 
+              number: {{ .Values.ctfd.service.ports.port }}

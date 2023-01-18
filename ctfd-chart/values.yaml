@@ -1,0 +1,43 @@
+
+
+ctfd:
+  name: ctfd
+  namespace: ctfd-space
+  container: 
+    name: ctfd
+    image: tolorid/ctfd:v1.1
+    ports:
+      containerPort: 8000
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1Gi"
+    secret:
+      name: DATABASE_PASSWORD
+      secret_name: mysql-pass
+      key: password
+  config:
+    name: ctfd-config
+    namespace: ctfd-space
+    data: 
+    - key: DATABASE_HOST
+      value: mysql
+    - key:  DATABASE_PROTOCOL
+      value: mysql
+    - key: DATABASE_USER
+      value: root
+    - key: DATABASE_NAME
+      value: ctfd_db
+    - key: DATABASE_PORT
+      value: "'3306'"
+  service:
+    name: ctfd
+    namespace: ctfd-space
+    ports:
+      port: 8000
+      targetPort: 8000
+  ingress:
+    name: ctfd-ingress
+    namespace: ctfd-space
+    host: localhost
+    path: /

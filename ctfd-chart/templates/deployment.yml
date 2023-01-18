@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.ctfd.name }}
+  namespace: {{ .Values.ctfd.namespace }}
+spec:  
+  selector:
+    matchLabels:
+      app: {{ .Values.ctfd.name }}
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.ctfd.name }}
+        name: {{ .Values.ctfd.name }}
+    spec:
+      containers:
+        - name: {{ .Values.ctfd.container.name }}
+          image: {{ .Values.ctfd.container.image }}
+          resources:
+            limits:
+              cpu: {{ .Values.ctfd.container.resources.limits.cpu }}
+              memory: {{ .Values.ctfd.container.resources.limits.memory }}
+          ports:
+            - containerPort: {{ .Values.ctfd.container.ports.containerPort }}
+          env:
+          - name: {{ .Values.ctfd.container.secret.name }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.ctfd.container.secret.secret_name }}
+                key: {{ .Values.ctfd.container.secret.key }}
+          envFrom:
+          - configMapRef:
+              name: {{ .Values.ctfd.config.name }}

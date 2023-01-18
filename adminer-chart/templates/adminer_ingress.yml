@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.adminer.ingress.name }}
+  labels:
+    name: {{ .Values.adminer.ingress.name }}
+  namespace: {{ .Values.adminer.namespace }}
+spec:
+  rules:
+  - host: {{ .Values.adminer.ingress.host }}
+    http:
+      paths:
+      - pathType: Prefix
+        path: {{ .Values.adminer.ingress.path }}
+        backend:
+          service:
+            name: {{ .Values.adminer.ingress.service.name }}
+            port: 
+              number: {{ .Values.adminer.ingress.service.port.number }}
