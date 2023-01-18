@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ctfd
+  namespace: ctfd-space
+spec:  
+  selector:
+    matchLabels:
+      app: ctfd
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ctfd
+        name: ctfd
+    spec:
+      containers:
+        - name: ctfd
+          image: tolorid/ctfd:v1.1
+          resources:
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DATABASE_PROTOCOL
+              valueFrom:
+                configMapKeyRef:
+                  name: ctfd-config
+                  key: DATABASE_PROTOCOL
+            - name: DATABASE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: ctfd-config
+                  key: DATABASE_HOST
+            - name: DATABASE_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: ctfd-config
+                  key: DATABASE_USER
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-pass
+                  key: password
+            - name: DATABASE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: ctfd-config
+                  key: DATABASE_NAME
+            - name: DATABASE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: ctfd-config
+                  key: DATABASE_PORT

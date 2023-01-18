@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: adminer-ingress
+  labels:
+    name: adminer-ingress
+  namespace: ctfd-space
+spec:
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - pathType: Prefix
+        path: /adminer
+        backend:
+          service:
+            name: adminer
+            port: 
+              number: 8080

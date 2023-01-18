@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ctfd-config
+  namespace: ctfd-space
+data:
+  DATABASE_HOST: mysql
+  DATABASE_PROTOCOL: mysql
+  DATABASE_USER: root
+  DATABASE_PORT: "3306"
+  DATABASE_NAME: ctfd_db
