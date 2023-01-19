@@ -16,6 +16,12 @@ ctfd:
       name: DATABASE_PASSWORD
       secret_name: mysql-pass
       key: password
+    readinessProbe:
+      scheme: HTTP
+      path: http://0.0.0.0/setup
+      port: 8000
+      initialDelaySeconds: 45
+      periodSeconds: 5
   config:
     name: ctfd-config
     namespace: ctfd-space

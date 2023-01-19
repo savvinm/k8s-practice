@@ -21,3 +21,10 @@ spec:
             cpu: {{ .Values.adminer.container.resources.limits.cpu }}
         ports:
         - containerPort: {{ .Values.adminer.container.ports.containerPort }}
+        readinessProbe:
+            httpGet:
+              scheme: {{ .Values.adminer.container.readinessProbe.scheme }}
+              path: {{ .Values.adminer.container.readinessProbe.path }}
+              port: {{ .Values.adminer.container.readinessProbe.port }}
+            initialDelaySeconds: {{ .Values.adminer.container.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.adminer.container.readinessProbe.periodSeconds }}

@@ -32,3 +32,10 @@ spec:
           envFrom:
           - configMapRef:
               name: {{ .Values.ctfd.config.name }}
+          readinessProbe:
+            httpGet:
+              scheme: {{ .Values.ctfd.container.readinessProbe.scheme }}
+              path: {{ .Values.ctfd.container.readinessProbe.path }}
+              port: {{ .Values.ctfd.container.readinessProbe.port }}
+            initialDelaySeconds: {{ .Values.ctfd.container.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.ctfd.container.readinessProbe.periodSeconds }}
