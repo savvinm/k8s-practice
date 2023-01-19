@@ -1,9 +1,9 @@
-version: '3.8'
+version: '3.9'
 services:
     jenkins-docker:
        image: docker:dind
        container_name: jenkins-docker
-       restart: unless-stopped
+       restart: on-failure
        privileged: true
        environment: 
          - DOCKER_TLS_CERTDIR=/certs
@@ -11,9 +11,9 @@ services:
          - jenkins-data:/var/jenkins_home
          - jenkins-docker-certs:/certs/client
        networks: 
-        jenkins:
+        minikube:
           aliases:
-            - docker
+            - dind
        ports: 
          - 2376:2376
 
@@ -30,7 +30,7 @@ services:
          - jenkins-data:/var/jenkins_home
          - jenkins-docker-certs:/certs/client:ro
        networks: 
-        - jenkins
+        - minikube
        ports: 
          - 8080:8080
          - 50000:50000
@@ -41,5 +41,5 @@ volumes:
   jenkins-data:
   jenkins-docker-certs:
 networks:
-  jenkins:
-    driver: bridge
+  minikube:
+    external: true

@@ -5,7 +5,7 @@ ctfd:
   namespace: ctfd-space
   container: 
     name: ctfd
-    image: tolorid/ctfd:v1.1
+    image: tolorid/ctfd:latest
     ports:
       containerPort: 8000
     resources:
