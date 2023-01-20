@@ -31,7 +31,15 @@ spec:
           - configMapRef:
               name: {{ .Values.mysql.config.name }}
           ports:
-            - containerPort: 3306
+            - containerPort: {{ .Values.mysql.container.ports.containerPort }}
+          readinessProbe:
+            exec:
+              command: 
+                - sh
+                - -c 
+                - {{ .Values.mysql.container.readinessProbe.command }}
+            initialDelaySeconds: {{ .Values.mysql.container.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.mysql.container.readinessProbe.periodSeconds }}
           volumeMounts:
           - name:  {{ .Values.mysql.container.volumeMounts.name }}
             mountPath:  {{ .Values.mysql.container.volumeMounts.mountPath }}

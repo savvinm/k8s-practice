@@ -20,7 +20,7 @@ ctfd:
       scheme: HTTP
       path: http://0.0.0.0/setup
       port: 8000
-      initialDelaySeconds: 45
+      initialDelaySeconds: 25
       periodSeconds: 5
   config:
     name: ctfd-config
